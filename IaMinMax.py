@@ -162,7 +162,7 @@ def selectmove(depth,board):
         board.push(move)
         boardValue = -alphabeta(-beta, -alpha, depth-1,board)
         if boardValue > bestValue:
-            bestValue = boardValue;
+            bestValue = boardValue
             bestMove = move
         if( boardValue > alpha ):
             alpha = boardValue
