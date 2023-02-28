@@ -153,25 +153,21 @@ def quiesce( alpha, beta, board):
     return alpha
 
 def selectmove(depth,board):
-    try:
-        move = chess.polyglot.MemoryMappedReader("C:/Users/Ansh Gaikwad/PycharmProjects/ChessWorld/books/varied.bin").weighted_choice(board).move()
-        movehistory.append(move)
-        return move
-    except:
-        bestMove = chess.Move.null()
-        bestValue = -99999
-        alpha = -100000
-        beta = 100000
-        for move in board.legal_moves:
-            board.push(move)
-            boardValue = -alphabeta(-beta, -alpha, depth-1,board)
-            if boardValue > bestValue:
-                bestValue = boardValue;
-                bestMove = move
-            if( boardValue > alpha ):
-                alpha = boardValue
-            board.pop()
-        movehistory.append(bestMove)
-        return bestMove
+
+    bestMove = chess.Move.null()
+    bestValue = -99999
+    alpha = -100000
+    beta = 100000
+    for move in board.legal_moves:
+        board.push(move)
+        boardValue = -alphabeta(-beta, -alpha, depth-1,board)
+        if boardValue > bestValue:
+            bestValue = boardValue;
+            bestMove = move
+        if( boardValue > alpha ):
+            alpha = boardValue
+        board.pop()
+    movehistory.append(bestMove)
+    return bestMove
     
 movehistory =[]
