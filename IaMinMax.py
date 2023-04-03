@@ -1,10 +1,4 @@
 import os
-import chess
-import chess.svg
-import chess.polyglot
-from IPython.display import SVG
-import chess.pgn
-import chess.engine
 import pickle
 
 pawntable = [
