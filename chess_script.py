@@ -2,8 +2,9 @@ import pyautogui
 import json
 import requests
 import chess
-import chess.engine
+# import chess.engine
 from optparse import OptionParser
+import IaMinMax
 
 parser = OptionParser()
 parser.add_option("-c", "--color", dest="player_color", default="white", help="The color of the player (white or black)")
@@ -35,19 +36,25 @@ def get_board():
     elif options.player_color == "black":
         return chess.Board(data['fen'] + " b - - 0 1")
 
-engine = chess.engine.SimpleEngine.popen_uci("stockfish_15.1_win_x64_avx2/stockfish-windows-2022-x86-64-avx2.exe")
+# engine = chess.engine.SimpleEngine.popen_uci("stockfish_15.1_win_x64_avx2/stockfish-windows-2022-x86-64-avx2.exe")
 old_fen_board = "8/8/8/8/8/8/8/8 w - - 0 1"
 board = chess.Board()
+
+chessAI = IaMinMax.ChessMinMax(2)
 
 while True:
     if get_board().fen().split()[0] != old_fen_board.split()[0]:
         board = get_board()
-        result = engine.play(board, chess.engine.Limit(time=5.0))
-        best_move = result.move
+
+        # result = engine.play(board, chess.engine.Limit(time=5.0))
+        # best_move = result.move
+
+        best_move = chessAI.selectmove(board)
 
         pyautogui.click(coordinates[best_move.uci()[0]], coordinates[best_move.uci()[1]], button='left')
         pyautogui.click(coordinates[best_move.uci()[2]], coordinates[best_move.uci()[3]], button='left')
 
+        # TODO: Rempalcer par un dictionnaire
         if best_move.uci()[3] == '1' or best_move.uci()[3] == '8':
             if best_move.uci()[-2:] == '8q':
                 pyautogui.click(coordinates[best_move.uci()[2]], coordinates['8'], button='left')
@@ -73,4 +80,4 @@ while True:
         if get_board().fen().split()[0] != old_fen_board.split()[0]:    
             old_fen_board = get_board().fen()
 
-engine.quit()
+# engine.quit()
