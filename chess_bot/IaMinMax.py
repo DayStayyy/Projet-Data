@@ -73,7 +73,7 @@ class ChessMinMax:
         self.depth = depth
         self.movehistory = {}
         for i in range(1,depth+1):
-            with open(f'moveHistoryDepth.pickle', 'rb') as handle:
+            with open(f'chess_bot/moveHistoryDepth.pickle', 'rb') as handle:
                 self.movehistory = pickle.load(handle)
                 
     def evaluate_board(self,board):
@@ -184,7 +184,7 @@ class ChessMinMax:
                 alpha = boardValue
             board.pop()
         self.movehistory[self.depth][board.fen()] = bestMove
-        with open(f'moveHistoryDepth.pickle', 'wb') as handle:
+        with open(f'chess_bot/moveHistoryDepth.pickle', 'wb') as handle:
             pickle.dump(self.movehistory, handle, protocol=pickle.HIGHEST_PROTOCOL)
         
         return bestMove
@@ -195,14 +195,14 @@ class ChessMinMax:
 if __name__ == "__main__":
     depth = 3
     # create move history file if it doesn't exist
-    if not os.path.isfile(f'moveHistoryDepth.pickle'):
-        with open(f'moveHistoryDepth.pickle', 'wb') as handle:
+    if not os.path.isfile(f'chess_bot/moveHistoryDepth.pickle'):
+        with open(f'chess_bot/moveHistoryDepth.pickle', 'wb') as handle:
             moveHistory = {}
             for i in range(1,depth+1):
                 moveHistory[i] = {}
             pickle.dump(moveHistory, handle, protocol=pickle.HIGHEST_PROTOCOL)
     else :
-        with open(f'moveHistoryDepth.pickle', 'rb') as handle:
+        with open(f'chess_bot/moveHistoryDepth.pickle', 'rb') as handle:
             moveHistory = pickle.load(handle)
             for i in range(1,depth+1):
                 if i not in moveHistory:

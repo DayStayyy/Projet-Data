@@ -4,7 +4,7 @@ import requests
 import chess
 # import chess.engine
 from optparse import OptionParser
-import IaMinMax
+import IaMinMax as IaMinMax
 
 parser = OptionParser()
 parser.add_option("-c", "--color", dest="player_color", default="white", help="The color of the player (white or black)")
@@ -24,10 +24,10 @@ coordinates = {
 
 def get_board():
     screenshot = pyautogui.screenshot(region=(x, y, width, height))
-    screenshot.save("chess_board.png")
+    screenshot.save("chess_bot/chess_board.png")
 
     url = "https://web-vrnocjtpaa-an.a.run.app/board_to_fen"
-    files = {'image': open('chess_board.png', 'rb')}
+    files = {'image': open('chess_bot/chess_board.png', 'rb')}
     response = requests.post(url, files=files)
     data = json.loads(response.text)
 
@@ -36,7 +36,7 @@ def get_board():
     elif options.player_color == "black":
         return chess.Board(data['fen'] + " b - - 0 1")
 
-# engine = chess.engine.SimpleEngine.popen_uci("stockfish_15.1_win_x64_avx2/stockfish-windows-2022-x86-64-avx2.exe")
+engine = chess.engine.SimpleEngine.popen_uci("stockfish_15.1_win_x64_avx2/stockfish-windows-2022-x86-64-avx2.exe")
 old_fen_board = "8/8/8/8/8/8/8/8 w - - 0 1"
 board = chess.Board()
 
@@ -54,7 +54,6 @@ while True:
         pyautogui.click(coordinates[best_move.uci()[0]], coordinates[best_move.uci()[1]], button='left')
         pyautogui.click(coordinates[best_move.uci()[2]], coordinates[best_move.uci()[3]], button='left')
 
-        # TODO: Rempalcer par un dictionnaire
         if best_move.uci()[3] == '1' or best_move.uci()[3] == '8':
             if best_move.uci()[-2:] == '8q':
                 pyautogui.click(coordinates[best_move.uci()[2]], coordinates['8'], button='left')
