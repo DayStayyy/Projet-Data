@@ -8,22 +8,22 @@ import IaMinMax as IaMinMax
 
 parser = OptionParser()
 parser.add_option("-c", "--color", dest="player_color", default="white", help="The color of the player (white or black)")
+parser.add_option("-x", "--abscissa", dest="board_abscissa", default="146", help="The abscissa corresponding to the beginning of the board")
+parser.add_option("-y", "--ordinate", dest="board_ordinate", default="202", help="The ordinate corresponding to the beginning of the board")
+parser.add_option("-w", "--width", dest="board_width", default="634", help="The width of the board")
 (options, args) = parser.parse_args()
 
-x, y, width, height = 86, 135, 560, 560
-# x, y, width, height = 146, 202, 488, 488
+x = int(options.board_abscissa)
+y = int(options.board_ordinate)
+width = int(options.board_width) - int(options.board_abscissa)
 
 coordinates = { 
-    "a": 121, "b": 191, "c": 261, "d": 331, "e": 401, "f": 471, "g": 541, "h": 611,
-    "8": 170, "7": 240, "6": 310, "5": 380, "4": 450, "3": 520, "2": 590, "1": 660 
+    "a": x + (width / 16), "b": x + (width / 16) + (width / 8), "c": x + (width / 16) + 2 *(width / 8), "d": x + (width / 16) + 3 *(width / 8), "e": x + (width / 16) + 4 *(width / 8), "f": x + (width / 16) + 5 *(width / 8), "g": x + (width / 16) + 6 *(width / 8), "h": x + (width / 16) + 7 *(width / 8),
+    "8": y + (width / 16), "7": y + (width / 16) + (width / 8), "6": y + (width / 16) + 2 * (width / 8), "5": y + (width / 16) + 3 * (width / 8), "4": y + (width / 16) + 4 * (width / 8), "3": y + (width / 16) + 5 * (width / 8), "2": y + (width / 16) + 6 * (width / 8), "1": y + (width / 16) + 7 * (width / 8) 
     }
-# coordinates = {
-#     "a": 176.5, "b": 237.5, "c": 298.5, "d": 359.5, "e": 420.5, "f": 481.5, "g": 542.5, "h": 603.5,
-#     "8": 232.5, "7": 293.5, "6": 354.5, "5": 415.5, "4": 476.5, "3": 537.5, "2": 598.5, "1": 659.5 
-# }
 
 def get_board():
-    screenshot = pyautogui.screenshot(region=(x, y, width, height))
+    screenshot = pyautogui.screenshot(region=(x, y, width, width))
     screenshot.save("chess_bot/chess_board.png")
 
     url = "https://web-vrnocjtpaa-an.a.run.app/board_to_fen"
@@ -36,7 +36,7 @@ def get_board():
     elif options.player_color == "black":
         return chess.Board(data['fen'] + " b - - 0 1")
 
-engine = chess.engine.SimpleEngine.popen_uci("stockfish_15.1_win_x64_avx2/stockfish-windows-2022-x86-64-avx2.exe")
+# engine = chess.engine.SimpleEngine.popen_uci("stockfish_15.1_win_x64_avx2/stockfish-windows-2022-x86-64-avx2.exe")
 old_fen_board = "8/8/8/8/8/8/8/8 w - - 0 1"
 board = chess.Board()
 
