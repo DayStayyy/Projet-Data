@@ -20,21 +20,21 @@ Pour récupérer les coordonnées d'un plateau d'échecs en utilisant la bibliot
 import mouseinfo
 mouseinfo.MouseInfoWindow()
 ```
-En exécutant cette commande cette fenêtre devrait apparaitre :  
+En exécutant cette commande, cette fenêtre devrait apparaitre :  
 ![image](images/mouseinfo.png)
 
 3. Vous allez ensuite récupérer les coordonnées de votre plateau :  
-    3. 1. L'abscisse et ordonnée trouvable à côté du label XY Position (X = abscisse et Y = ordonnée) :
+    3. 1. L'abscisse et l'ordonnée trouvable à côté du label XY Position (X = abscisse et Y = ordonnée) :
     ![image](images/board_abscissa_and_ordinate.png)
     3. 2. Largeur du plateu, correspond à l'abscisse de cette position:  
     ![image](images/board_width.png)
 
 ## Configuration des paramètres de chess.com
 
-Si vous avez décidé de jouer sur chess.com vous allez devoir configurer quelques paramètres sur votre partie. Pour faire celà vous devez cliquer sur la roue dentée juste en haut à droite de notre plateau. Une fois cela fait nous allons modifier quelques paramètres :
+Si vous avez décidé de jouer sur chess.com vous allez devoir configurer quelques paramètres sur votre partie. Pour faire cela vous devez cliquer sur la roue dentée juste en haut à droite de notre plateau. Une fois cela fait nous allons modifier quelques paramètres :
 
 1. Affichage des pièces :  
-Pour faciliter la reconnaissance des pièces nous allons utiliser cette affichage par défaut.  
+Pour faciliter la reconnaissance des pièces nous allons utiliser cet affichage par défaut.  
 ![image](images/pieces_et_echiquier.png)
 
 2. Animation et déplacement :  
@@ -54,7 +54,7 @@ python .\chess_bot\chess_script.py -c color -x abscissa -y ordinate -w width
 ```
 
 Les valeurs suivantes sont à remplacer : 
-1. ``color`` doit être remplacé par "black" ou "whte" en fonction de la couleur que vous jouez.
-2. ``abscissa`` doit être remplacé par l'adscisse récupérée sur le premier point
+1. ``color`` doit être remplacé par "black" ou "white" en fonction de la couleur que vous jouez.
+2. ``abscissa`` doit être remplacé par l'abscisse récupérée sur le premier point
 3. ``ordinate`` doit être remplacé par l'ordonnée récupérée sur le premier point
-4. ``width`` doit être remplacé par l'adscisse récupérée sur le second point
+4. ``width`` doit être remplacé par l'abscisse récupérée sur le second point
